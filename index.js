@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
 
+// Informa ao Express para usar o EJS como View Engine
 app.set("view engine", "ejs");
 
+// Permite que o app aceite arquivos estáticos, como css, imagens, etc. E seta esses arquivos na pasta 'public'
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
-    res.render("home");
+    res.render("index");
 });
 
 app.listen(8080, () => {
