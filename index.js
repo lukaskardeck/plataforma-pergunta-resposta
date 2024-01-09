@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
+
+// models do database
 const Pergunta = require("./database/models/Pergunta");
 
 // Database
@@ -24,7 +26,11 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get("/", (req, res) => {
-    res.render("index");
+    Pergunta.findAll({ raw: true }).then(perguntas => {
+        res.render("index", {
+            perguntas: perguntas
+        });
+    });
 });
 
 app.get("/perguntar", (req, res) => {
