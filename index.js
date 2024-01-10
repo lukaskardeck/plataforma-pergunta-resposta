@@ -5,6 +5,7 @@ const connection = require("./database/database");
 
 // models do database
 const Pergunta = require("./database/models/Pergunta");
+const Resposta = require("./database/models/Resposta");
 
 // Database
 connection
