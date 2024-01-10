@@ -26,7 +26,9 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get("/", (req, res) => {
-    Pergunta.findAll({ raw: true }).then(perguntas => {
+    Pergunta.findAll({ raw: true, order: [
+        ['id','DESC'] // ASC = Crescente ;  DESC = Descrescente ;
+    ] }).then(perguntas => {
         res.render("index", {
             perguntas: perguntas
         });
@@ -37,6 +39,25 @@ app.get("/perguntar", (req, res) => {
     res.render("perguntar");
 });
 
+app.get("/perguntaRealizada", (req, res) => {
+    res.render("perguntaRealizada");
+});
+
+app.get("/pergunta/:id", (req, res) => {
+    let id = req.params.id;
+    Pergunta.findOne({
+        where: {id: id}
+    }).then(pergunta => {
+        if (pergunta != undefined) {
+            res.render("pergunta", {
+                pergunta: pergunta
+            });
+        } else {
+            res.redirect("/");
+        }
+    });
+});
+
 app.post("/salvar_pergunta", (req, res) => {
     let titulo = req.body.titulo;
     let descricao = req.body.descricao;
@@ -45,7 +66,7 @@ app.post("/salvar_pergunta", (req, res) => {
         titulo: titulo,
         descricao: descricao
     }).then(() => {
-        res.redirect("/");
+        res.redirect("/perguntaRealizada");
     });
 });
 
