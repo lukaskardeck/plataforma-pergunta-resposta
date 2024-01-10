@@ -12,9 +12,10 @@
             <div class="card-header">
                 <h2>Responda</h2>
             </div>
-            <form action="">
+            <form method="post" action="/responder">
                 <div class="card-body">
                     <textarea name="corpo" class="form-control" placeholder="Digite a sua resposta"></textarea><br>
+                    <input type="hidden" name="pergunta" value="<%-pergunta.id%>">
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-primary">Reponder</button>

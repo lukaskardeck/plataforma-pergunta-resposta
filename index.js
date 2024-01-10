@@ -26,6 +26,11 @@ app.use(express.static("public"));
 // Transforma os dados do formulário em uma estrutura JS que possa ser utlizado no app
 app.use(bodyParser.urlencoded({extended: false}));
 
+
+/**
+ * Métodos GET
+ */
+
 app.get("/", (req, res) => {
     Pergunta.findAll({ raw: true, order: [
         ['id','DESC'] // ASC = Crescente ;  DESC = Descrescente ;
@@ -59,6 +64,11 @@ app.get("/pergunta/:id", (req, res) => {
     });
 });
 
+
+/**
+ * Métodos POST
+ */
+
 app.post("/salvar_pergunta", (req, res) => {
     let titulo = req.body.titulo;
     let descricao = req.body.descricao;
@@ -69,6 +79,20 @@ app.post("/salvar_pergunta", (req, res) => {
     }).then(() => {
         res.redirect("/perguntaRealizada");
     });
+});
+
+
+app.post("/responder", (req, res) => {
+    let corpo = req.body.corpo;
+    let perguntaID = req.body.pergunta;
+
+    Resposta.create({
+        corpo: corpo,
+        perguntaID: perguntaID
+    }).then(() => {
+        res.redirect("/pergunta/" + perguntaID);
+    });
+
 });
 
 app.listen(8080, () => {
