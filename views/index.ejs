@@ -3,21 +3,22 @@
     <%- include ('partials/navbar.ejs') %>
 
     <div class="container">
-        <hr>
-        <h1>Perguntas</h1>
-        <hr>
-        <a href="/perguntar" class="btn btn-primary">Perguntar</a>
-        <hr>
+
+        <div id="title">
+            <h1 style="font-size: 3.5em;">Qual é a sua dúvida?</h1>
+            <a href="/perguntar" class="btn btn-info" style="font-size: 1.2em;">Faça a sua pergunta</a>
+        </div>
 
         <% perguntas.forEach( pergunta => {%>
             <br>
             <div class="card">
                 <div class="card-body">
-                    <p><%- pergunta.titulo%></p>
+                    <h5><%- pergunta.titulo%></h5>
+                    <p><%- pergunta.descricao%></p>
                 </div>
                 <div class="card-footer">
                     <a href="/pergunta/<%- pergunta.id%>">
-                        <button class="btn btn-primary">Responder</button>
+                        <button class="btn btn-info">Responder</button>
                     </a>
                 </div>
             </div>
